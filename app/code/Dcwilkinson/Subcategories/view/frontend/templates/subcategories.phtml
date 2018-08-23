@@ -11,12 +11,17 @@ $subcategories = $categoryObj->getChildrenCategories();
 <?php 
 
 foreach($subcategories as $subcat) {
-
+	$categoryData = $this->getCategoryData($subcat->getId());
+	$image_filename = $categoryData['category_thumb'];
+	$image_folder = $this->getUrl('pub/media').'catalog/category/';
+	$image_complete = $image_folder.$image_filename;
+		
 ?>
 
     <li class="sub-category">
-    	<img src="<?php echo $this->getImageUrl($subcat->getId()); ?>" alt="<?php echo $subcat->getName(); ?>" />
-        <a href="<?php echo $subcat->getUrl(); ?>"><?php echo $subcat->getName(); ?></a>
+		<a href="<?php echo $subcat->getUrl(); ?>"><?php echo $subcat->getName(); ?><BR>
+    	<?php if($image_filename != ''){?><img src="<?php echo $image_complete ?>" alt="<?php echo $subcat->getName(); ?>" /></a> <?php }?>
+        
     </li>
     
 <?php } ?>
